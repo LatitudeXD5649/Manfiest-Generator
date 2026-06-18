@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ultimate Minecraft Manifest Generator</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #141414;
+            color: #dae0e6;
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center;
+        }
+        .container {
+            background-color: #1e1e1e;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+            width: 100%;
+            max-width: 700px;
+            border: 1px solid #333;
+        }
+        h2 { margin-top: 0; color: #4caf50; text-align: center; }
+        .section {
+            background: #252526;
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            border-left: 4px solid #4caf50;
+        }
+        .section-title {
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .form-group { margin-bottom: 15px; }
+        .row { display: flex; gap: 10px; }
+        .col { flex: 1; }
+        label { display: block; margin-bottom: 5px; font-size: 13px; color: #aaa; }
+        input, select, textarea {
+            width: 100%; padding: 10px; border: 1px solid #444; border-radius: 4px;
+            background-color: #2d2d2d; color: #fff; box-sizing: border-box;
+        }
+        input:focus, select:focus, textarea:focus { outline: none; border-color: #4caf50; }
+        
+        /* Color Code Badge Grid */
+        .color-grid { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 5px; }
+        .color-badge {
+            padding: 3px 6px; font-size: 11px; border-radius: 3px; cursor: pointer;
+            background: #333; border: 1px solid #444; user-select: none;
+        }
+        .color-badge:hover { background: #444; }
+
+        /* Subpack Card */
+        .subpack-card {
+            background: #2d2d2d; padding: 12px; border-radius: 6px;
+            margin-bottom: 10px; border: 1px solid #444; position: relative;
+        }
+        .btn-danger { background-color: #d32f2f; }
+        .btn-danger:hover { background-color: #b71c1c; }
+        .btn-secondary { background-color: #444; }
+        .btn-secondary:hover { background-color: #555; }
+        
+        button {
+            padding: 10px 15px; color: white; border: none; border-radius: 4px;
+            font-weight: bold; cursor: pointer; transition: background 0.2s;
+        }
+        .btn-block { width: 100%; padding: 14px; font-size: 16px; background-color: #4caf50; margin-top: 10px;}
+        .btn-block:hover { background-color: #45a049; }
+        .sm-btn { padding: 5px 10px; font-size: 12px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Ultimate MC Manifest Generator</h2>
+    
+    <!-- HEADER SECTION -->
+    <div class="section">
+        <div class="section-title">Pack Info</div>
+        <div class="form-group">
+            <label id="name-label">Pack Name (Click format codes below to insert: §)</label>
+            <input type="text" id="packName" placeholder="§bMy §lAwesome§r Pack" required>
+          <div class="color-grid">
+    <span class="color-badge" style="background: #000000; color: #fff;" onclick="insertCode('§0')">§0 Black</span>
+    <span class="color-badge" style="background: #0000AA; color: #fff;" onclick="insertCode('§1')">§1 Blue</span>
+    <span class="color-badge" style="background: #00AA00; color: #fff;" onclick="insertCode('§2')">§2 Green</span>
+    <span class="color-badge" style="background: #00AAAA; color: #fff;" onclick="insertCode('§3')">§3 Cyan</span>
+    <span class="color-badge" style="background: #AA0000; color: #fff;" onclick="insertCode('§4')">§4 Red</span>
+    <span class="color-badge" style="background: #AA00AA; color: #fff;" onclick="insertCode('§5')">§5 Purple</span>
+    <span class="color-badge" style="background: #FFAA00; color: #000;" onclick="insertCode('§6')">§6 Gold</span>
+    <span class="color-badge" style="background: #AAAAAA; color: #000;" onclick="insertCode('§7')">§7 Gray</span>
+    <span class="color-badge" style="background: #555555; color: #fff;" onclick="insertCode('§8')">§8 D.Gray</span>
+    <span class="color-badge" style="background: #5555FF; color: #fff;" onclick="insertCode('§9')">§9 Indigo</span>
+    <span class="color-badge" style="background: #55FF55; color: #000;" onclick="insertCode('§a')">§a L.Green</span>
+    <span class="color-badge" style="background: #55FFFF; color: #000;" onclick="insertCode('§b')">§b Aqua</span>
+    <span class="color-badge" style="background: #FF5555; color: #000;" onclick="insertCode('§c')">§c L.Red</span>
+    <span class="color-badge" style="background: #FF55FF; color: #000;" onclick="insertCode('§d')">§d Pink</span>
+    <span class="color-badge" style="background: #FFFF55; color: #000;" onclick="insertCode('§e')">§e Yellow</span>
+    <span class="color-badge" style="background: #FFFFFF; color: #000;" onclick="insertCode('§f')">§f White</span>
+    <span class="color-badge" style="background: #333333; color: #fff; font-weight: bold;" onclick="insertCode('§l')">§l Bold</span>
+    <span class="color-badge" style="background: #333333; color: #fff; font-style: italic;" onclick="insertCode('§o')">§o Italic</span>
+    <span class="color-badge" style="background: #444444; color: #fff; border: 1px dashed #777;" onclick="insertCode('§r')">§r Reset</span>
+</div>
+        </div>
+
+        <div class="form-group">
+            <label>Description</label>
+            <textarea id="packDesc" rows="2" placeholder="§7Changes the look of swords..."></textarea>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <label>Pack Version</label>
+                <div class="row">
+                    <input type="number" id="vMaj" value="1" min="0">
+                    <input type="number" id="vMin" value="0" min="0">
+                    <input type="number" id="vPat" value="0" min="0">
+                </div>
+            </div>
+            <div class="col">
+                <label>Min Engine Version (Target Minecraft)</label>
+                <div class="row">
+                    <input type="number" id="eMaj" value="1" min="0">
+                    <input type="number" id="eMin" value="20" min="0">
+                    <input type="number" id="ePat" value="0" min="0">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODULES SECTION -->
+    <div class="section">
+        <div class="section-title">Pack Type</div>
+        <div class="form-group">
+            <select id="packType">
+                <option value="resources">Resource Pack (Textures, Sounds, UI)</option>
+                <option value="data">Behavior Pack (Entities, Functions, Components)</option>
+                <option value="skin_pack">Skin Pack</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- SUBPACKS SECTION (INFINITE SUBPACKS) -->
+    <div class="section">
+        <div class="section-title">
+            <span>Subpacks (Optional Resolution/Setting toggles)</span>
+            <button class="btn-secondary sm-btn" type="button" onclick="addSubpack()">+ Add Subpack</button>
+        </div>
+        <div id="subpacks-container">
+            <!-- Dynamic subpacks go here -->
+        </div>
+    </div>
+
+    <button class="btn-block" onclick="downloadManifest()">Download manifest.json</button>
+</div>
+
+<script>
+    // Keep track of focused input for inserting color codes
+    let lastFocusedInput = document.getElementById('packName');
+    document.getElementById('packName').addEventListener('focus', e => lastFocusedInput = e.target);
+    document.getElementById('packDesc').addEventListener('focus', e => lastFocusedInput = e.target);
+
+    function insertCode(code) {
+        const input = lastFocusedInput;
+        const start = input.selectionStart;
+        const end = input.selectionEnd;
+        const text = input.value;
+        input.value = text.slice(0, start) + code + text.slice(end);
+        input.focus();
+        input.selectionStart = input.selectionEnd = start + code.length;
+    }
+
+    function generateUUID() {
+        return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
+            (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+        );
+    }
+
+    let subpackCount = 0;
+    function addSubpack() {
+        subpackCount++;
+        const container = document.getElementById('subpacks-container');
+        const card = document.createElement('div');
+        card.className = 'subpack-card';
+        card.id = `subpack-${subpackCount}`;
+        card.innerHTML = `
+            <div class="row" style="margin-bottom: 8px;">
+                <div class="col">
+                    <label>Folder Name (e.g., 16x, 64x, ultra)</label>
+                    <input type="text" class="sub-folder" placeholder="16x" required>
+                </div>
+                <div class="col">
+                    <label>Display Name</label>
+                    <input type="text" class="sub-name" placeholder="§a16x Standard Res" required>
+                </div>
+            </div>
+            <div class="row" style="align-items: flex-end;">
+                <div class="col" style="flex: 3;">
+                    <label>Subpack Memory Tier (Resource performance slider value)</label>
+                    <input type="number" class="sub-tier" value="0">
+                </div>
+                <button class="btn-danger sm-btn" onclick="document.getElementById('subpack-${subpackCount}').remove()">Remove</button>
+            </div>
+        `;
+        container.appendChild(card);
+    }
+
+    function downloadManifest() {
+        const name = document.getElementById('packName').value.trim();
+        const desc = document.getElementById('packDesc').value.trim() || "Generated Ultimate Manifest";
+        const type = document.getElementById('packType').value;
+        
+        const version = [
+            parseInt(document.getElementById('vMaj').value) || 1,
+            parseInt(document.getElementById('vMin').value) || 0,
+            parseInt(document.getElementById('vPat').value) || 0
+        ];
+        const engineVersion = [
+            parseInt(document.getElementById('eMaj').value) || 1,
+            parseInt(document.getElementById('eMin').value) || 20,
+            parseInt(document.getElementById('ePat').value) || 0
+        ];
+
+        if (!name) {
+            alert("Please enter a Pack Name!");
+            return;
+        }
+
+        // Base manifest
+        const manifest = {
+            "format_version": 2,
+            "header": {
+                "description": desc,
+                "name": name,
+                "uuid": generateUUID(),
+                "version": version,
+                "min_engine_version": engineVersion
+            },
+            "modules": [
+                {
+                    "description": desc,
+                    "type": type,
+                    "uuid": generateUUID(),
+                    "version": version
+                }
+            ]
+        };
+
+        // Gather subpacks dynamically
+        const subpackElements = document.querySelectorAll('.subpack-card');
+        if (subpackElements.length > 0) {
+            manifest.subpacks = [];
+            subpackElements.forEach(el => {
+                const folder = el.querySelector('.sub-folder').value.trim() || "default";
+                const subName = el.querySelector('.sub-name').value.trim() || "Default Tier";
+                const memoryTier = parseInt(el.querySelector('.sub-tier').value) || 0;
+                
+                manifest.subpacks.push({
+                    "folder_name": folder,
+                    "name": subName,
+                    "memory_tier": memoryTier
+                });
+            });
+        }
+
+        // Download logic
+        const jsonString = JSON.stringify(manifest, null, 4);
+        const blob = new Blob([jsonString], { type: "application/json" });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = "manifest.json";
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+    }
+</script>
+
+</body>
+</html>
