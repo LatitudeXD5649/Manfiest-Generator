@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional MC Manifest Generator</title>
+    <style>
+        body { font-family: sans-serif; background: #141414; color: #dae0e6; margin: 0; padding: 20px; display: flex; justify-content: center; }
+        .container { background: #1e1e1e; padding: 25px; border-radius: 12px; width: 100%; max-width: 650px; box-shadow: 0 8px 30px rgba(0,0,0,0.5); }
+        h2 { margin: 0 0 20px; color: #4caf50; text-align: center; }
+        .section { background: #252526; padding: 15px; border-radius: 6px; margin-bottom: 15px; border-left: 4px solid #4caf50; }
+        .section-title { font-weight: bold; margin-bottom: 12px; color: #fff; display: flex; justify-content: space-between; align-items: center; }
+        .form-group { margin-bottom: 12px; }
+        .row { display: flex; gap: 10px; margin-bottom: 8px; }
+        .col { flex: 1; }
+        label { display: block; margin-bottom: 5px; font-size: 13px; color: #aaa; }
+        input, select, textarea { width: 100%; padding: 8px; border: 1px solid #444; border-radius: 4px; background: #2d2d2d; color: #fff; box-sizing: border-box; }
+        input:focus, select:focus, textarea:focus { outline: none; border-color: #4caf50; }
+        .color-grid { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 6px; }
+        .color-badge { padding: 4px 6px; font-size: 11px; border-radius: 3px; cursor: pointer; user-select: none; font-weight: bold; border: 1px solid rgba(0,0,0,0.2); }
+        
+        /* Shorthand Color Mapping Rules */
+        .color-badge[data-c="0"] { background: #000; color: #fff; } .color-badge[data-c="1"] { background: #00A; color: #fff; }
+        .color-badge[data-c="2"] { background: #0A0; color: #000; } .color-badge[data-c="3"] { background: #0AA; color: #fff; }
+        .color-badge[data-c="4"] { background: #A00; color: #fff; } .color-badge[data-c="5"] { background: #A0A; color: #fff; }
+        .color-badge[data-c="6"] { background: #FA0; color: #000; } .color-badge[data-c="7"] { background: #AAA; color: #000; }
+        .color-badge[data-c="8"] { background: #555; color: #fff; } .color-badge[data-c="9"] { background: #55F; color: #fff; }
+        .color-badge[data-c="a"] { background: #5F5; color: #000; } .color-badge[data-c="b"] { background: #5FF; color: #000; }
+        .color-badge[data-c="c"] { background: #F55; color: #000; } .color-badge[data-c="d"] { background: #F5F; color: #000; }
+        .color-badge[data-c="e"] { background: #FF5; color: #000; } .color-badge[data-c="f"] { background: #FFF; color: #000; }
+        .color-badge[data-c="l"] { background: #333; color: #fff; font-weight: bold; }
+        .color-badge[data-c="o"] { background: #333; color: #fff; font-style: italic; }
+        .color-badge[data-c="r"] { background: #444; color: #fff; border: 1px dashed #777; }
+
+        .subpack-card { background: #2d2d2d; padding: 12px; border-radius: 6px; margin-bottom: 10px; border: 1px solid #444; }
+        button { padding: 8px 12px; color: white; border: none; border-radius: 4px; font-weight: bold; cursor: pointer; }
+        .btn-block { width: 100%; padding: 12px; font-size: 16px; background: #4caf50; margin-top: 10px; }
+        .btn-danger { background: #d32f2f; } .btn-secondary { background: #444; font-size: 12px; padding: 4px 8px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Ultimate MC Manifest Generator</h2>
+    
+    <div class="section">
+        <div class="section-title">Pack Info</div>
+        <div class="form-group">
+            <label>Pack Name / Description (Click format codes below to insert)</label>
+            <input type="text" id="packName" placeholder="§bMy §lAwesome§r Pack" style="margin-bottom:8px;" required>
+            <textarea id="packDesc" rows="2" placeholder="§7Changes the look of swords..."></textarea>
+            <div class="color-grid" id="colorGrid"></div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <label>Pack Version</label>
+                <div class="row"><input type="number" id="vMaj" value="1"><input type="number" id="vMin" value="0"><input type="number" id="vPat" value="0"></div>
+            </div>
+            <div class="col">
+                <label>Min Engine Version</label>
+                <div class="row"><input type="number" id="eMaj" value="1"><input type="number" id="eMin" value="20"><input type="number" id="ePat" value="0"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Creator Metadata (Professional Info)</div>
+        <div class="form-group">
+            <label>Authors (Separate names with commas)</label>
+            <input type="text" id="metaAuthors" placeholder="Steverino, AlexTheDev">
+        </div>
+        <div class="row">
+            <div class="col">
+                <label>Website / Project URL</label>
+                <input type="url" id="metaUrl" placeholder="https://github.com/yourprofile">
+            </div>
+            <div class="col">
+                <label>License</label>
+                <input type="text" id="metaLicense" placeholder="MIT, CC BY-NC 4.0, or Private">
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Pack Type</div>
+        <select id="packType">
+            <option value="resources">Resource Pack (Textures, Sounds, UI)</option>
+            <option value="data">Behavior Pack (Entities, Functions)</option>
+            <option value="skin_pack">Skin Pack</option>
+        </select>
+    </div>
+
+    <div class="section">
+        <div class="section-title">
+            <span>Subpacks (Optional Toggle Settings)</span>
+            <button class="btn-secondary" type="button" onclick="addSubpack()">+ Add Subpack</button>
+        </div>
+        <div id="subpacks-container"></div>
+    </div>
+
+    <button class="btn-block" onclick="downloadManifest()">Download manifest.json</button>
+</div>
+
+<script>
+    // Colors Generator
+    const colors = [['0','Black'],['1','Blue'],['2','Green'],['3','Cyan'],['4','Red'],['5','Purple'],['6','Gold'],['7','Gray'],['8','D.Gray'],['9','Indigo'],['a','L.Green'],['b','Aqua'],['c','L.Red'],['d','Pink'],['e','Yellow'],['f','White'],['l','Bold'],['o','Italic'],['r','Reset']];
+    document.getElementById('colorGrid').innerHTML = colors.map(([c, n]) => `<span class="color-badge" data-c="${c}" onclick="insertCode('§${c}')">§${c} ${n}</span>`).join('');
+
+    let focusInp = document.getElementById('packName');
+    document.getElementById('packName').addEventListener('focus', e => focusInp = e.target);
+    document.getElementById('packDesc').addEventListener('focus', e => focusInp = e.target);
+
+    function insertCode(code) {
+        const start = focusInp.selectionStart, end = focusInp.selectionEnd, text = focusInp.value;
+        focusInp.value = text.slice(0, start) + code + text.slice(end);
+        focusInp.focus();
+        focusInp.selectionStart = focusInp.selectionEnd = start + code.length;
+    }
+
+    function genUUID() {
+        return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c => (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16));
+    }
+
+    let subpackCount = 0;
+    function addSubpack() {
+        subpackCount++;
+        const card = document.createElement('div');
+        card.className = 'subpack-card';
+        card.id = `subpack-${subpackCount}`;
+        card.innerHTML = `
+            <div class="row">
+                <div class="col"><label>Folder Name</label><input type="text" class="sub-folder" placeholder="16x" required></div>
+                <div class="col"><label>Display Name</label><input type="text" class="sub-name" placeholder="§a16x Res" required></div>
+            </div>
+            <div class="row" style="align-items: flex-end; margin-bottom:0;">
+                <div class="col" style="flex: 3;"><label>Memory Tier</label><input type="number" class="sub-tier" value="0"></div>
+                <button class="btn-danger" style="padding: 7px 12px;" onclick="document.getElementById('subpack-${subpackCount}').remove()">Remove</button>
+            </div>`;
+        document.getElementById('subpacks-container').appendChild(card);
+    }
+
+    function downloadManifest() {
+        const name = document.getElementById('packName').value.trim();
+        const desc = document.getElementById('packDesc').value.trim() || "Generated Manifest";
+        if (!name) return alert("Please enter a Pack Name!");
+
+        const getV = (id) => parseInt(document.getElementById(id).value) || 0;
+        const version = [getV('vMaj'), getV('vMin'), getV('vPat')];
+        const engineVersion = [getV('eMaj'), getV('eMin'), getV('ePat')];
+
+        // Base Minecraft Structure
+        const manifest = {
+            "format_version": 2,
+            "header": {
+                "description": desc,
+                "name": name,
+                "uuid": genUUID(),
+                "version": version,
+                "min_engine_version": engineVersion
+            },
+            "modules": [
+                {
+                    "description": desc,
+                    "type": document.getElementById('packType').value,
+                    "uuid": genUUID(),
+                    "version": version
+                }
+            ]
+        };
+
+        // Professional Metadata Handling
+        const authorsInput = document.getElementById('metaAuthors').value.trim();
+        const urlInput = document.getElementById('metaUrl').value.trim();
+        const licenseInput = document.getElementById('metaLicense').value.trim();
+
+        if (authorsInput || urlInput || licenseInput) {
+            manifest.metadata = {};
+            if (authorsInput) {
+                // Split string by commas and clean up white space to turn it into a real clean array
+                manifest.metadata.authors = authorsInput.split(',').map(a => a.trim()).filter(Boolean);
+            }
+            if (urlInput) manifest.metadata.url = urlInput;
+            if (licenseInput) manifest.metadata.license = licenseInput;
+        }
+
+        // Subpacks Parsing
+        const subpackElements = document.querySelectorAll('.subpack-card');
+        if (subpackElements.length > 0) {
+            manifest.subpacks = [];
+            subpackElements.forEach(el => {
+                manifest.subpacks.push({
+                    "folder_name": el.querySelector('.sub-folder').value.trim() || "default",
+                    "name": el.querySelector('.sub-name').value.trim() || "Tier",
+                    "memory_tier": parseInt(el.querySelector('.sub-tier').value) || 0
+                });
+            });
+        }
+
+        // Pretty Print download link conversion (4-space tabs, neat lines)
+        const prettyPrintedJson = JSON.stringify(manifest, null, 4);
+        const link = document.createElement("a");
+        link.href = URL.createObjectURL(new Blob([prettyPrintedJson], { type: "application/json" }));
+        link.download = "manifest.json";
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }
+</script>
+</body>
+</html>
